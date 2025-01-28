@@ -5,7 +5,7 @@
 Install dartpm cli tool globally using dart
 
 ```bash
-dart pub global activate --source hosted --hosted-url "http://dartpm.com" dartpm
+dart pub global activate --source hosted --hosted-url "http://localhost:8080" dartpm
 ```
 
 ## Usage
@@ -26,35 +26,11 @@ dartpm logout
 
 This will remove access from all the organisations.
 
-### 3. Add
-
-```bash
-dartpm add <package_name>
-```
-
-Add the package.
-
-### 4. Doctor
-
-```bash
-dartpm doctor
-```
-
-### 5. Publish
-
-Add `publish_to` in pubspec.yaml
-for unscoped package : publish_to: http://dartpm.com
-for scoped package: publish_to: http://dartpm.com/registry/<scope>
-
-Scope of package is orgId or user username.
+### 3. Publish
 
 ```bash
 dartpm publish
 ```
-
-Add the package.
-
-Get info about session
 
 ## Troubleshoot
 

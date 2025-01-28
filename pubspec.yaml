@@ -1,0 +1,21 @@
+name: dartpm
+description: The dartpm cli tool.
+version: 1.0.0
+publish_to: https://dartpm.app
+
+environment:
+  sdk: ^3.5.3
+
+# Add regular dependencies here.
+dependencies:
+  args: ^2.6.0
+  http: ^1.2.2
+  json2yaml: ^3.0.1
+  yaml: ^3.1.3
+
+dev_dependencies:
+  lints: ^4.0.0
+  test: ^1.24.0
+
+executables:
+  dartpm: dartpm
