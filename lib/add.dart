@@ -1,30 +1,32 @@
 import 'dart:io';
 import 'package:args/args.dart';
 import 'package:dartpm/constants.dart';
+import 'package:dartpm/utils/textColorUtils.dart';
 import 'package:dartpm/utils/utils.dart';
 
-final addPackageArgParser = ArgParser()..addFlag('help', abbr: 'h', negatable: false);
+const addHelp = 'Add package from dartpm.';
+const addHelpDetails =
+    'This command makes easy to add packages directly from the dartpm. This is just an alias. Packages can be added using dart CLI tool as well.';
 
-// handleAddPackage(List<String> arguments) {
-//   try {
-//     print('add package0 ${arguments}');
-//     final ArgResults argResults = addPackageArgParser.parse(arguments);
-//     print('add package0 ${argResults}');
-
-//     if (argResults['help'] as bool || arguments.isEmpty) {
-//       print('Usage: dartpm add <Package name>');
-//       exit(0);
-//     }
-//   } catch (error) {
-//     throw 'Invalid package name';
-//   }
-// }
+final addPackageArgParser = ArgParser()
+  ..addFlag(
+    'help',
+    abbr: 'h',
+    negatable: false,
+    help: 'Help for add command',
+  )
+  ..addFlag(
+    'gobal',
+    abbr: 'g',
+    negatable: false,
+    help: 'Add global package',
+  );
 
 handleAddPackage(List<String> packages) async {
   final ArgResults argResults = addPackageArgParser.parse(packages);
 
   if (argResults['help'] as bool || packages.isEmpty) {
-    print('Usage: dartpm add <Package name>');
+    printCommandHelp('add', addHelp, addPackageArgParser, addHelpDetails);
     exit(0);
   }
 
@@ -57,7 +59,12 @@ handleAddPackage(List<String> packages) async {
     } else {
       throw 'invalid package name';
     }
-    print('package $packageName $orgName $version');
-    await addPackage(serverBaseUrl: SERVER_BASE_URL, packageName: packageName, org: orgName, version: version);
+
+    await addPackage(
+        serverBaseUrl: SERVER_BASE_URL,
+        packageName: packageName,
+        org: orgName,
+        version: version,
+        isGlobal: argResults['global']);
   }
 }

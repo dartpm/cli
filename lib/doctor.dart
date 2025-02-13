@@ -1,16 +1,26 @@
 import 'dart:io';
 import 'package:args/args.dart';
 import 'package:dartpm/constants.dart';
-import 'package:dartpm/dartpm.dart';
 import 'package:dartpm/service/storageService.dart';
+import 'package:dartpm/utils/textColorUtils.dart';
 
-final doctorArgParser = ArgParser()..addFlag('help', abbr: 'h', negatable: false);
+const doctorHelp = 'See details of current dartpm CLI session.';
+const doctorHelpDetails =
+    'doctor command will show the users orgs. If the org is missing, you can log out and log in again.';
+
+final doctorArgParser = ArgParser()
+  ..addFlag(
+    'help',
+    abbr: 'h',
+    negatable: false,
+    help: 'Help for doctor command',
+  );
 
 Future<void> handleDoctor(List<String> arguments) async {
-  final ArgResults argResults = logoutArgParser.parse(arguments);
+  final ArgResults argResults = doctorArgParser.parse(arguments);
 
   if (argResults['help'] as bool) {
-    print('Usage: See information about current session');
+    printCommandHelp('doctor', doctorHelp, doctorArgParser);
     exit(0);
   }
 

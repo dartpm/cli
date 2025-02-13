@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:yaml/yaml.dart';
 
 const smallCaseLetters = 'abcdefghijklmnopqrstuvwxyz';
 const capitalLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -8,7 +9,10 @@ const specialCharacters = '-_';
 
 String generateRandomBase64String(int length) {
   // Generate random bytes
-  const ascii = smallCaseLetters + capitalLetters + digits + specialCharacters; // 26 + 26 + 10 + 2
+  const ascii = smallCaseLetters +
+      capitalLetters +
+      digits +
+      specialCharacters; // 26 + 26 + 10 + 2
   final random = Random.secure();
   String s = '';
   for (int i = 0; i < length; i++) {
@@ -61,6 +65,7 @@ Future<void> deleteOrgToken(String route) async {
 addPackage({
   required String serverBaseUrl,
   required String packageName,
+  required bool isGlobal,
   String? org,
   String? version,
 }) async {
@@ -75,10 +80,20 @@ addPackage({
 
   print('add command ${'\'$packageName:{${config.join(', ')}}\''}');
 
-  var process = await Process.start(
-    'dart',
-    ['pub', 'add', '\'$packageName:{${config.join(', ')}}\''],
-  );
+  var process = isGlobal
+      ? await Process.start(
+          'dart',
+          [
+            'pub',
+            'global',
+            'activate',
+            '\'$packageName:{${config.join(', ')}}\''
+          ],
+        )
+      : await Process.start(
+          'dart',
+          ['pub', 'add', '\'$packageName:{${config.join(', ')}}\''],
+        );
 
   await process.stdin.close();
 
@@ -135,4 +150,13 @@ Future<void> getOrgs() async {
   final exitCode = await process.exitCode;
 
   exit(exitCode);
+}
+
+String getVersion() {
+  final pubspecFile = File('pubspec.yaml');
+  final content = pubspecFile.readAsStringSync();
+  final pubspec = loadYaml(content);
+
+  final version = pubspec['version'];
+  return version as String;
 }
