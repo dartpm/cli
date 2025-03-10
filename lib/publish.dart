@@ -5,7 +5,7 @@ import 'package:dartpm/utils/textColorUtils.dart';
 import 'package:dartpm/utils/utils.dart';
 
 const publishHelp = 'Configure the pubspec.yaml for publishing on dartpm';
-const publishHelpDetails = 'Update publish_to field to point $SERVER_BASE_URL';
+final publishHelpDetails = 'Update publish_to field to point $SERVER_BASE_URL';
 
 final publishArgParser = ArgParser()
   ..addFlag(
