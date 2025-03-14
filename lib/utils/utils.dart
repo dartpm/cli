@@ -6,13 +6,13 @@ const smallCaseLetters = 'abcdefghijklmnopqrstuvwxyz';
 const capitalLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const digits = '1234567890';
 const specialCharacters = '-_';
+const ascii = smallCaseLetters +
+    capitalLetters +
+    digits +
+    specialCharacters; // 26 + 26 + 10 + 2
 
 String generateRandomBase64String(int length) {
   // Generate random bytes
-  const ascii = smallCaseLetters +
-      capitalLetters +
-      digits +
-      specialCharacters; // 26 + 26 + 10 + 2
   final random = Random.secure();
   String s = '';
   for (int i = 0; i < length; i++) {

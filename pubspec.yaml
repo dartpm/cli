@@ -1,7 +1,6 @@
 name: dartpm
 description: The dartpm cli tool.
 version: 0.0.1
-# publish_to: https://dartpm.com
 publish_to: http://localhost:8080
 
 environment:
