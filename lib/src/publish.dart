@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:dartpm/src/command.dart';
 import 'package:dartpm/utils/constants.dart';
+import 'package:dartpm/utils/textColorUtils.dart';
 import 'package:dartpm/utils/utils.dart';
 
 class PublishCommand extends CommandExtension {
@@ -8,7 +9,8 @@ class PublishCommand extends CommandExtension {
   final name = 'publish';
 
   @override
-  final description = 'Configure the pubspec.yaml for publishing on dartpm';
+  final description = color(
+      'Configure the pubspec.yaml for publishing on dartpm', AnsiColor.magenta);
 
   // Function to update the 'publish_to' field if it exists (even as a comment), ensuring no preceding spaces, tabs, or #.
   String _updatePublishTo(String content) {

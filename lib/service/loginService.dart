@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dartpm/service/encrypt.dart';
+import 'package:dartpm/utils/textColorUtils.dart';
 
 import '../utils/loginResponse.dart';
 import '../utils/utils.dart' as utils;
@@ -71,6 +72,8 @@ class LoginService {
     String webToken = encrypt(pairingToken, secret);
 
     utils.openUrl('$webBaseUri/login/$webToken');
+    print(
+        'open url in browser ${color('$webBaseUri/login/$webToken', AnsiColor.magenta)}');
     return await loginEndpointWithRetry(pairingToken, secret, desc);
   }
 }

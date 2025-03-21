@@ -47,3 +47,4 @@ dartpm publish
 - List global packages `dart pub global list`
 
 - Remove global package `dart pub global deactivate dartpm`
+

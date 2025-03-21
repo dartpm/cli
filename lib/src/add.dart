@@ -1,5 +1,6 @@
 import 'package:dartpm/src/command.dart';
 import 'package:dartpm/utils/constants.dart';
+import 'package:dartpm/utils/textColorUtils.dart';
 import 'package:dartpm/utils/utils.dart';
 
 class AddCommand extends CommandExtension {
@@ -17,7 +18,7 @@ class AddCommand extends CommandExtension {
   final name = 'add';
 
   @override
-  final description = 'Add package from dartpm.';
+  final description = color('Add package from dartpm.', AnsiColor.magenta);
 
   @override
   Future<void> main() async {

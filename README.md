@@ -5,7 +5,7 @@
 Install dartpm cli tool globally using dart
 
 ```bash
-dart pub global activate --source hosted --hosted-url "http://dartpm.com" dartpm
+dart pub global activate --source hosted --hosted-url "https://dartpm.com" dartpm
 ```
 
 ## Usage
@@ -60,14 +60,3 @@ Get info about session
 
 - If you are already logged in but still not able to publish and getting error like `NO ACCESS`, try `dartpm logout` and `dartpm login` again. This will add missing organisations.
 
-## Run locally
-
-- Clone the repo
-
-- Activate package globally : `dart pub global activate --source path .`
-
-- Run command locally using : `dart run bin/dartpm.dart <Command name>`
-
-- List global packages `dart pub global list`
-
-- Remove global package `dart pub global deactivate dartpm`

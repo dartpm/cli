@@ -2,6 +2,7 @@ import 'package:dartpm/service/loginService.dart';
 import 'package:dartpm/service/storageService.dart';
 import 'package:dartpm/src/command.dart';
 import 'package:dartpm/utils/constants.dart';
+import 'package:dartpm/utils/textColorUtils.dart';
 import 'package:dartpm/utils/utils.dart';
 
 class LoginCommand extends CommandExtension {
@@ -23,7 +24,7 @@ class LoginCommand extends CommandExtension {
   final name = 'login';
 
   @override
-  final description = 'Log in to dartpm.';
+  final description = color('Log in to dartpm.', AnsiColor.magenta);
 
   @override
   Future<void> main() async {

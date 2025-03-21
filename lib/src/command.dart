@@ -1,7 +1,7 @@
 import 'package:args/command_runner.dart';
 import 'package:dartpm/service/logging.dart';
 
-abstract class CommandExtension<T> extends Command {
+abstract class CommandExtension<T> extends Command<T> {
   CommandExtension() {
     argParser.addFlag(
       "verbose",
@@ -12,7 +12,7 @@ abstract class CommandExtension<T> extends Command {
   }
 
   @override
-  Future<T> run() async {
+  run() async {
     final verbose = argResults!['verbose'] as bool;
     if (verbose) {
       enableVerboseLogging();
