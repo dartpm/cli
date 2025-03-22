@@ -1,4 +1,4 @@
-import 'package:dartpm/utils/utils.dart';
+import 'package:dartpm/utils/constants.dart';
 
 String encrypt(String data, String key) {
   String encryptedData = "";

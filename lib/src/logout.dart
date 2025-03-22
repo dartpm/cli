@@ -1,8 +1,8 @@
 import 'package:dartpm/service/storageService.dart';
-import 'package:dartpm/src/command.dart';
+import 'package:dartpm/service/command.dart';
+import 'package:dartpm/service/process.dart';
 import 'package:dartpm/utils/constants.dart';
 import 'package:dartpm/utils/textColorUtils.dart';
-import 'package:dartpm/utils/utils.dart';
 
 class LogoutCommand extends CommandExtension {
   @override
@@ -18,15 +18,24 @@ class LogoutCommand extends CommandExtension {
       final storageData = getFromStorage();
       if (storageData != null) {
         for (int i = 0; i < storageData.orgs.length; i++) {
-          await deleteOrgToken(
+          await _deleteOrgToken(
               '$SERVER_BASE_URL/registry/${storageData.orgs.elementAt(i).id}');
         }
       }
-      await deleteOrgToken(SERVER_BASE_URL);
+      await _deleteOrgToken(SERVER_BASE_URL);
       deleteStorage();
       print('Logged out successfully');
     } catch (e) {
       throw ('No login session found');
     }
+  }
+
+  Future<void> _deleteOrgToken(String route) async {
+    var process = await CustomProcessHandler.start(
+      'dart',
+      ['pub', 'token', 'remove', route],
+    );
+
+    await process.waitForExit();
   }
 }

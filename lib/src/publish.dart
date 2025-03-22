@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'package:dartpm/src/command.dart';
+import 'package:dartpm/service/command.dart';
+import 'package:dartpm/service/process.dart';
 import 'package:dartpm/utils/constants.dart';
 import 'package:dartpm/utils/textColorUtils.dart';
-import 'package:dartpm/utils/utils.dart';
 
 class PublishCommand extends CommandExtension {
   @override
@@ -54,6 +54,17 @@ class PublishCommand extends CommandExtension {
 
     print("Updated publish_to field in pubspec.yaml successfully.");
 
-    await publishPackage();
+    await _publishPackage();
+  }
+
+  Future<void> _publishPackage() async {
+    var process = await CustomProcessHandler.start(
+      'dart',
+      ['pub', 'publish', '--force'],
+    );
+
+    await process.waitForExit();
+
+    exit(exitCode);
   }
 }

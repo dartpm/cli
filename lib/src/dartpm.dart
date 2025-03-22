@@ -6,6 +6,8 @@ import 'package:dartpm/service/logging.dart';
 import 'package:dartpm/src/login.dart';
 import 'package:dartpm/src/logout.dart';
 import 'package:dartpm/src/publish.dart';
+import 'package:dartpm/utils/textColorUtils.dart';
+import 'package:dartpm/utils/utils.dart';
 import 'package:logging/logging.dart';
 
 final log = Logger('dartpm');
@@ -25,6 +27,7 @@ Future<void> runMain(List<String> args) async {
     await runner.run(args);
   } catch (e) {
     log.severe(kDoubleSeparator);
+    log.severe(color('dartpm version: ${getVersion()}', AnsiColor.magenta));
     log.severe('dartpm failed with error:');
     log.severe(kSeparator);
     log.severe(e);

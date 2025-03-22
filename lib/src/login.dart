@@ -1,9 +1,9 @@
 import 'package:dartpm/service/loginService.dart';
 import 'package:dartpm/service/storageService.dart';
-import 'package:dartpm/src/command.dart';
+import 'package:dartpm/service/command.dart';
+import 'package:dartpm/service/process.dart';
 import 'package:dartpm/utils/constants.dart';
 import 'package:dartpm/utils/textColorUtils.dart';
-import 'package:dartpm/utils/utils.dart';
 
 class LoginCommand extends CommandExtension {
   LoginCommand() {
@@ -37,12 +37,21 @@ class LoginCommand extends CommandExtension {
         : loginService.login(desc));
 
     for (int i = 0; i < loginResponse.orgs.length; i++) {
-      await setToken(
+      await _setToken(
           '$SERVER_BASE_URL/registry/${loginResponse.orgs.elementAt(i).id}',
           loginResponse.token);
     }
-    await setToken(SERVER_BASE_URL, loginResponse.token);
+    await _setToken(SERVER_BASE_URL, loginResponse.token);
 
     saveToStorage(StorageData(loginResponse.orgs));
+  }
+
+  Future<void> _setToken(String route, String token) async {
+    var process = await CustomProcessHandler.start(
+      'dart',
+      ['pub', 'token', 'add', route],
+    );
+
+    await process.waitForExit();
   }
 }
