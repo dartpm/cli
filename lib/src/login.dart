@@ -2,6 +2,8 @@ import 'package:dartpm/service/loginService.dart';
 import 'package:dartpm/service/storageService.dart';
 import 'package:dartpm/service/command.dart';
 import 'package:dartpm/service/process.dart';
+import 'package:dartpm/src/dartpm.dart';
+import 'package:dartpm/src/logout.dart';
 import 'package:dartpm/utils/constants.dart';
 import 'package:dartpm/utils/textColorUtils.dart';
 
@@ -28,6 +30,11 @@ class LoginCommand extends CommandExtension {
 
   @override
   Future<void> main() async {
+    try {
+      await LogoutCommand().run();
+    } catch (e) {
+      log.info('No old session found');
+    }
     final loginService = LoginService(SERVER_BASE_URL, WEB_BASE_URL);
     final token = argResults!['token'] as String?;
     final desc = argResults!['desc'] as String?;
@@ -52,6 +59,7 @@ class LoginCommand extends CommandExtension {
       ['pub', 'token', 'add', route],
     );
 
+    process.writeToStdin(token);
     await process.waitForExit();
   }
 }

@@ -24,33 +24,26 @@ class AddCommand extends CommandExtension {
     final packages = argResults!.rest;
 
     for (int i = 0; i < packages.length; i++) {
-      // print('packages : ${packages[i].split('@')}');
-      final packageData = packages[i].split('@');
-      String packageName;
+      String packageName = packages[i];
       String? scope;
       String? version;
-      if (packageData.length == 1) {
-        /// package_name
-        packageName = packageData[0];
-      } else if (packageData.length == 2) {
-        if (packageData[0] == '') {
-          /// @org_name/package_name
-          final packageData1 = packageData[1].split('/');
-          scope = packageData1[0];
-          packageName = packageData1[1];
-        } else {
-          /// package_name@1.0.0
-          packageName = packageData[0];
-          version = packageData[1];
+
+      if (packageName.contains('@')) {
+        final packageData = packageName.split('@');
+        if (packageData.length != 2) {
+          throw 'Invalid package name';
         }
-      } else if (packageData.length == 3) {
-        /// @org_name/package_name@1.0.0
-        final packageData1 = packageData[1].split('/');
-        scope = packageData1[0];
-        packageName = packageData1[1];
-        version = packageData[2];
-      } else {
-        throw 'invalid package name';
+        version = packageData[1];
+        packageName = packageData[0];
+      }
+
+      if (packageName.contains('/')) {
+        final packageData = packageName.split('/');
+        if (packageData.length != 2) {
+          throw 'Invalid package name';
+        }
+        scope = packageData[0];
+        packageName = packageData[1];
       }
 
       await _addPackageCommand(
@@ -87,10 +80,13 @@ class AddCommand extends CommandExtension {
             'pub',
             'global',
             'activate',
-            '$packageName:{${config.join(', ')}}'
+            '--source',
+            'hosted',
+            '--hosted-url',
+            packageUrl,
+            packageName
           ])
         : CustomProcessHandler.start(
-            //'pwd', []
             'dart',
             ['pub', 'add', '$packageName:{${config.join(', ')}}'],
           ));

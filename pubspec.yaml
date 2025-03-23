@@ -1,6 +1,6 @@
 name: dartpm
 description: The dartpm cli tool.
-version: 0.0.8
+version: 0.0.9
 publish_to: https://dartpm.com
 
 environment:
