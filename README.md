@@ -16,7 +16,7 @@ dart pub global activate --source hosted --hosted-url "https://dartpm.com" dartp
 dartpm login
 ```
 
-This will initiate login and open browser, after complete login, user can publish packages to all the users organisations.
+This will initiate login and open browser, after complete login, user can publish packages to all the users organizations.
 
 ### 2. Logout
 
@@ -24,7 +24,7 @@ This will initiate login and open browser, after complete login, user can publis
 dartpm logout
 ```
 
-This will remove access from all the organisations.
+This will remove access from all the organizations.
 
 ### 3. Add
 
@@ -54,5 +54,5 @@ dart pub publish
 
 ## Troubleshoot
 
-- If you are already logged in but still not able to publish and getting error like `NO ACCESS`, try `dartpm logout` and `dartpm login` again. This will add missing organisations.
+- If you are already logged in but still not able to publish and getting error like `NO ACCESS`, try `dartpm logout` and `dartpm login` again. This will add missing organizations.
 
