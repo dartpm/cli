@@ -5,7 +5,6 @@ import 'package:dartpm/src/doctor.dart';
 import 'package:dartpm/service/logging.dart';
 import 'package:dartpm/src/login.dart';
 import 'package:dartpm/src/logout.dart';
-import 'package:dartpm/src/publish.dart';
 import 'package:dartpm/utils/textColorUtils.dart';
 import 'package:dartpm/utils/utils.dart';
 import 'package:logging/logging.dart';
@@ -21,7 +20,6 @@ Future<void> runMain(List<String> args) async {
       ..addCommand(LoginCommand())
       ..addCommand(LogoutCommand())
       ..addCommand(AddCommand())
-      ..addCommand(PublishCommand())
       ..addCommand(DoctorCommand());
 
     await runner.run(args);

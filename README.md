@@ -43,18 +43,14 @@ dartpm doctor
 ### 5. Publish
 
 Add `publish_to` in pubspec.yaml
-for unscoped package : publish_to: http://dartpm.com
-for scoped package: publish_to: http://dartpm.com/registry/<scope>
+for unscoped package : publish_to: https://dartpm.com
+for scoped package: publish_to: https://dartpm.com/registry/<scope>
 
 Scope of package is orgId or user username.
 
 ```bash
-dartpm publish
+dart pub publish
 ```
-
-Add the package.
-
-Get info about session
 
 ## Troubleshoot
 
